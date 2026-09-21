@@ -110,3 +110,40 @@
     reader.readAsText(file);
   });
 })();
+
+
+(function(){
+  function refreshStats(){
+    const modules=document.getElementById("statModules");
+    const analyzed=document.getElementById("statAnalyzed");
+    const findings=document.getElementById("statFindings");
+    const visible=document.getElementById("statVisible");
+    if(modules) modules.textContent=String(catalog.length);
+    if(analyzed) analyzed.textContent=String(catalog.filter(function(p){return !!state[p.id].last;}).length);
+    if(findings){
+      const total=catalog.reduce(function(sum,p){
+        const result=state[p.id].last;
+        return sum+(result && Array.isArray(result.findings)?result.findings.length:0);
+      },0);
+      findings.textContent=String(total);
+    }
+    if(visible) visible.textContent=String(document.querySelectorAll("#projectGrid .project-card").length);
+  }
+
+  const renderGridWithStats=renderGrid;
+  renderGrid=function(){
+    renderGridWithStats();
+    refreshStats();
+  };
+
+  const runAnalysisWithStats=runAnalysis;
+  runAnalysis=function(p){
+    runAnalysisWithStats(p);
+    refreshStats();
+  };
+
+  globalSearch.addEventListener("input",refreshStats);
+  categoryFilters.addEventListener("click",function(){setTimeout(refreshStats,0);});
+  refreshStats();
+  window.AcervoEnhancements.refreshStats=refreshStats;
+})();
