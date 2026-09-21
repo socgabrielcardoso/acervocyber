@@ -261,3 +261,43 @@
     renderHistory(id);
   };
 })();
+
+
+(function(){
+  function csvCell(value){
+    return '"'+String(value==null?"":value).replace(/"/g,'""')+'"';
+  }
+
+  function exportCurrentCsv(){
+    if(!activeProject || !state[activeProject] || !state[activeProject].last){
+      toast("Execute uma análise antes de exportar");
+      return;
+    }
+    const result=state[activeProject].last;
+    const rows=[["titulo","detalhe","severidade","valor"]];
+    (result.findings||[]).forEach(function(f){
+      rows.push([f.title,f.detail,f.severity,f.value]);
+    });
+    const csv=rows.map(function(row){return row.map(csvCell).join(",");}).join("\r\n");
+    const blob=new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8"});
+    const url=URL.createObjectURL(blob);
+    const link=document.createElement("a");
+    link.href=url;
+    link.download=activeProject+"-achados.csv";
+    link.click();
+    URL.revokeObjectURL(url);
+    toast("Achados exportados em CSV");
+  }
+
+  const observer=new MutationObserver(function(){
+    const actions=document.querySelector(".workspace-actions");
+    if(!actions || document.getElementById("exportCsvButton")) return;
+    const button=document.createElement("button");
+    button.className="secondary-button";
+    button.id="exportCsvButton";
+    button.textContent="Exportar CSV";
+    button.addEventListener("click",exportCurrentCsv);
+    actions.appendChild(button);
+  });
+  observer.observe(workspaceMount,{childList:true,subtree:true});
+})();
