@@ -1,0 +1,17 @@
+{
+  "name": "Acervo Cyber",
+  "short_name": "AcervoCyber",
+  "description": "Laboratório Blue Team com dez sistemas independentes de análise defensiva.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#06101b",
+  "theme_color": "#07111f",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
