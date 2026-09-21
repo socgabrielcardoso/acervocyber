@@ -175,3 +175,33 @@
     }
   });
 })();
+
+
+(function(){
+  let syncingHash=false;
+
+  const projectOpenWithHash=openProject;
+  openProject=function(id){
+    projectOpenWithHash(id);
+    if(!syncingHash) history.replaceState(null,"","#module="+encodeURIComponent(id));
+  };
+
+  const homeOpenWithHash=openHome;
+  openHome=function(){
+    homeOpenWithHash();
+    if(!syncingHash) history.replaceState(null,"",location.pathname+location.search);
+  };
+
+  function routeFromHash(){
+    const match=location.hash.match(/^#module=([^&]+)/);
+    if(!match) return;
+    const id=decodeURIComponent(match[1]);
+    if(!getProject(id)) return;
+    syncingHash=true;
+    openProject(id);
+    syncingHash=false;
+  }
+
+  window.addEventListener("hashchange",routeFromHash);
+  routeFromHash();
+})();
