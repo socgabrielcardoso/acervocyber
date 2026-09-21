@@ -301,3 +301,47 @@
   });
   observer.observe(workspaceMount,{childList:true,subtree:true});
 })();
+
+
+(function(){
+  const fileInput=document.createElement("input");
+  fileInput.type="file";
+  fileInput.accept=".txt,.log,.csv,.json,text/plain,text/csv,application/json";
+  fileInput.hidden=true;
+  document.body.appendChild(fileInput);
+
+  fileInput.addEventListener("change",function(){
+    const file=fileInput.files && fileInput.files[0];
+    if(!file || !activeProject) return;
+    if(file.size>2*1024*1024){
+      toast("Arquivo acima do limite de 2 MB");
+      return;
+    }
+    const reader=new FileReader();
+    reader.onload=function(){
+      const area=document.getElementById("dataInput");
+      if(!area) return;
+      area.value=String(reader.result||"");
+      state[activeProject].input=area.value;
+      area.dispatchEvent(new Event("input",{bubbles:true}));
+      if(window.AcervoEnhancements) window.AcervoEnhancements.saveLocal();
+      toast("Arquivo carregado no módulo");
+    };
+    reader.readAsText(file);
+  });
+
+  const observer=new MutationObserver(function(){
+    const actions=document.querySelector(".workspace-actions");
+    if(!actions || document.getElementById("loadFileButton")) return;
+    const button=document.createElement("button");
+    button.className="secondary-button";
+    button.id="loadFileButton";
+    button.textContent="Abrir arquivo";
+    button.addEventListener("click",function(){
+      fileInput.value="";
+      fileInput.click();
+    });
+    actions.appendChild(button);
+  });
+  observer.observe(workspaceMount,{childList:true,subtree:true});
+})();
