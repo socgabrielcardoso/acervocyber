@@ -147,3 +147,31 @@
   refreshStats();
   window.AcervoEnhancements.refreshStats=refreshStats;
 })();
+
+
+(function(){
+  document.addEventListener("keydown",function(event){
+    const tag=(event.target && event.target.tagName || "").toLowerCase();
+    const typing=tag==="input" || tag==="textarea" || tag==="select";
+
+    if((event.ctrlKey || event.metaKey) && event.key.toLowerCase()==="k"){
+      event.preventDefault();
+      globalSearch.focus();
+      globalSearch.select();
+      return;
+    }
+
+    if(event.key==="Escape"){
+      if(sidebar.classList.contains("open")){
+        sidebar.classList.remove("open");
+        return;
+      }
+      if(activeProject!==null && !typing) openHome();
+    }
+
+    if(!typing && event.altKey && /^[1-9]$/.test(event.key)){
+      const project=catalog[Number(event.key)-1];
+      if(project) openProject(project.id);
+    }
+  });
+})();
