@@ -392,3 +392,36 @@
   });
   observer.observe(workspaceMount,{childList:true,subtree:true});
 })();
+
+
+(function(){
+  function addSeverityFilter(){
+    const mount=document.getElementById("resultMount");
+    if(!mount || !mount.querySelector(".result-item") || mount.querySelector(".result-toolbar")) return;
+
+    const toolbar=document.createElement("div");
+    toolbar.className="result-toolbar";
+    toolbar.innerHTML='<label for="severityFilter">Filtrar achados por severidade</label>'+
+      '<select id="severityFilter"><option value="all">Todas</option><option value="high">Alta</option><option value="medium">Média</option><option value="low">Baixa</option></select>';
+    mount.insertBefore(toolbar,mount.firstChild);
+
+    toolbar.querySelector("select").addEventListener("change",function(event){
+      const wanted=event.target.value;
+      mount.querySelectorAll(".result-item").forEach(function(item){
+        const badge=item.querySelector(".badge");
+        const level=badge && badge.classList.contains("high")?"high":
+          badge && badge.classList.contains("medium")?"medium":"low";
+        item.hidden=wanted!=="all" && level!==wanted;
+      });
+    });
+  }
+
+  const renderResultWithFilter=renderResult;
+  renderResult=function(p,result){
+    renderResultWithFilter(p,result);
+    addSeverityFilter();
+  };
+
+  const observer=new MutationObserver(addSeverityFilter);
+  observer.observe(workspaceMount,{childList:true,subtree:true});
+})();
