@@ -425,3 +425,58 @@
   const observer=new MutationObserver(addSeverityFilter);
   observer.observe(workspaceMount,{childList:true,subtree:true});
 })();
+
+
+(function(){
+  function buildTextReport(){
+    if(!activeProject || !state[activeProject] || !state[activeProject].last) return "";
+    const project=getProject(activeProject);
+    const result=state[activeProject].last;
+    const output=[
+      "ACERVO CYBER",
+      project.title,
+      "Gerado em: "+new Date().toLocaleString("pt-BR"),
+      "",
+      "MÉTRICAS"
+    ];
+
+    (result.metrics||[]).forEach(function(metric){
+      output.push(metric[0]+": "+metric[1]);
+    });
+
+    output.push("","ACHADOS");
+    (result.findings||[]).forEach(function(finding,index){
+      output.push((index+1)+". ["+finding.severity+"] "+finding.title);
+      output.push("   "+finding.detail);
+    });
+
+    output.push("","RESUMO",result.summary||"");
+    return output.join("\n");
+  }
+
+  async function copyReport(){
+    const report=buildTextReport();
+    if(!report){
+      toast("Execute uma análise antes de copiar o relatório");
+      return;
+    }
+    try{
+      await navigator.clipboard.writeText(report);
+      toast("Relatório copiado");
+    }catch(_){
+      toast("Não foi possível copiar o relatório");
+    }
+  }
+
+  const observer=new MutationObserver(function(){
+    const actions=document.querySelector(".workspace-actions");
+    if(!actions || document.getElementById("copyReportButton")) return;
+    const button=document.createElement("button");
+    button.className="secondary-button";
+    button.id="copyReportButton";
+    button.textContent="Copiar relatório";
+    button.addEventListener("click",copyReport);
+    actions.appendChild(button);
+  });
+  observer.observe(workspaceMount,{childList:true,subtree:true});
+})();
