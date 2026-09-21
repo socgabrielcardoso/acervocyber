@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Acervo Cyber">
+  <defs>
+    <linearGradient id="g" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#35d9ff"/>
+      <stop offset="1" stop-color="#50e39a"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#06101b"/>
+  <path d="M32 8 51 16v14c0 12.9-7.7 21.8-19 26C20.7 51.8 13 42.9 13 30V16L32 8Z" fill="none" stroke="url(#g)" stroke-width="4"/>
+  <path d="M23 31h18M32 22v18" stroke="#edf7ff" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="32" cy="31" r="4" fill="#06101b" stroke="#35d9ff" stroke-width="3"/>
+</svg>
