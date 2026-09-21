@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Acervo Cyber: laboratório Blue Team com 10 sistemas independentes para detecção, investigação, análise de logs, baseline e tuning de regras.">
+  <title>Acervo Cyber | Blue Team Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">AC</div>
+      <div>
+        <strong>ACERVO CYBER</strong>
+        <span>BLUE TEAM LAB</span>
+      </div>
+    </div>
+
+    <div class="side-status">
+      <span class="status-dot"></span>
+      <span>10 sistemas disponíveis</span>
+    </div>
+
+    <nav id="projectNav" class="project-nav" aria-label="Projetos"></nav>
+
+    <div class="sidebar-footer">
+      <div class="mini-card">
+        <span>Modo</span>
+        <strong>Laboratório local</strong>
+      </div>
+      <div class="mini-card">
+        <span>Dados</span>
+        <strong>Processados no navegador</strong>
+      </div>
+    </div>
+  </aside>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <button class="icon-button mobile-only" id="menuButton" aria-label="Abrir menu">☰</button>
+
+      <div class="topbar-copy">
+        <span class="eyebrow">SOC OPERATIONS WORKBENCH</span>
+        <h1 id="workspaceTitle">Acervo Cyber</h1>
+      </div>
+
+      <div class="topbar-actions">
+        <label class="search-box">
+          <span>⌕</span>
+          <input id="globalSearch" type="search" placeholder="Buscar sistema, tecnologia ou função">
+        </label>
+        <button class="ghost-button" id="exportButton">Exportar sessão</button>
+      </div>
+    </header>
+
+    <section id="homeView" class="view active">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="hero-kicker">10 PROJETOS • 10 SISTEMAS • 1 ACERVO</div>
+          <h2>Laboratório Blue Team com ferramentas independentes para treinar investigação e detecção.</h2>
+          <p>
+            Cada projeto funciona como um sistema isolado. Nenhum módulo depende dos demais.
+            Abra, carregue os dados de exemplo, ajuste os parâmetros e valide o resultado direto no navegador.
+          </p>
+          <div class="hero-actions">
+            <button class="primary-button" id="openFirst">Abrir primeiro sistema</button>
+            <button class="secondary-button" id="loadSamples">Carregar amostras locais</button>
+          </div>
+        </div>
+
+        <div class="hero-console" aria-label="Resumo operacional">
+          <div class="console-head">
+            <span>acervo://status</span>
+            <span class="console-live">LIVE</span>
+          </div>
+          <div class="console-grid">
+            <div><span>Módulos</span><strong>10</strong></div>
+            <div><span>Dependências</span><strong>0</strong></div>
+            <div><span>Backend</span><strong>Não</strong></div>
+            <div><span>Execução</span><strong>Local</strong></div>
+          </div>
+          <pre id="bootLog">[OK] interface inicializada
+[OK] catálogo carregado
+[OK] mecanismos de análise disponíveis
+[SAFE] nenhum ataque real é executado</pre>
+        </div>
+      </div>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">CATÁLOGO</span>
+            <h3>Sistemas do acervo</h3>
+          </div>
+          <div class="filter-row" id="categoryFilters"></div>
+        </div>
+        <div id="projectGrid" class="project-grid"></div>
+      </section>
+    </section>
+
+    <section id="workspaceView" class="view">
+      <div id="workspaceMount"></div>
+    </section>
+  </main>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
