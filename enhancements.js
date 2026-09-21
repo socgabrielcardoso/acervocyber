@@ -345,3 +345,50 @@
   });
   observer.observe(workspaceMount,{childList:true,subtree:true});
 })();
+
+
+(function(){
+  function uniqueMatches(text,regex){
+    return Array.from(new Set(text.match(regex)||[])).slice(0,12);
+  }
+
+  function renderIocs(){
+    if(!activeProject) return;
+    const area=document.getElementById("dataInput");
+    const host=document.querySelector(".workspace-layout > div:last-child");
+    if(!area || !host) return;
+
+    let card=document.getElementById("iocExtractorCard");
+    if(!card){
+      card=document.createElement("div");
+      card.id="iocExtractorCard";
+      card.className="workspace-card ioc-card";
+      host.appendChild(card);
+    }
+
+    const text=area.value;
+    const ips=uniqueMatches(text,/\b(?:\d{1,3}\.){3}\d{1,3}\b/g);
+    const hashes=uniqueMatches(text,/\b[a-fA-F0-9]{64}\b/g);
+    const domains=uniqueMatches(text,/\b(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}\b/g)
+      .filter(function(value){return !/^\d+\.\d+\.\d+\.\d+$/.test(value);});
+
+    const groups=[["IPs",ips],["Domínios",domains],["SHA-256",hashes]];
+
+    card.innerHTML='<h3>IOC Extractor <span>extração local</span></h3><div class="ioc-grid">'+
+      groups.map(function(group){
+        return '<div class="ioc-row"><span>'+group[0]+' • '+group[1].length+'</span><code>'+
+          escapeHtml(group[1].length?group[1].join("\n"):"nenhum indicador")+
+          '</code></div>';
+      }).join("")+
+      '</div>';
+  }
+
+  const observer=new MutationObserver(function(){
+    const area=document.getElementById("dataInput");
+    if(!area || area.dataset.iocBound) return;
+    area.dataset.iocBound="1";
+    area.addEventListener("input",renderIocs);
+    renderIocs();
+  });
+  observer.observe(workspaceMount,{childList:true,subtree:true});
+})();
