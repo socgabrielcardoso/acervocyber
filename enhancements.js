@@ -205,3 +205,59 @@
   window.addEventListener("hashchange",routeFromHash);
   routeFromHash();
 })();
+
+
+(function(){
+  const HISTORY_KEY="acervoCyberHistoryV1";
+
+  function readHistory(){
+    try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||"{}")||{};}
+    catch(_){return {};}
+  }
+
+  function writeHistory(value){
+    try{localStorage.setItem(HISTORY_KEY,JSON.stringify(value));}catch(_){}
+  }
+
+  function pushHistory(project,result){
+    const all=readHistory();
+    if(!Array.isArray(all[project.id])) all[project.id]=[];
+    all[project.id].unshift({
+      at:new Date().toISOString(),
+      findings:Array.isArray(result && result.findings)?result.findings.length:0
+    });
+    all[project.id]=all[project.id].slice(0,5);
+    writeHistory(all);
+  }
+
+  function renderHistory(projectId){
+    const host=document.querySelector(".workspace-layout > div:last-child");
+    if(!host) return;
+    const previous=document.getElementById("analysisHistoryCard");
+    if(previous) previous.remove();
+
+    const items=readHistory()[projectId]||[];
+    const card=document.createElement("div");
+    card.className="workspace-card";
+    card.id="analysisHistoryCard";
+    card.style.marginTop="16px";
+    card.innerHTML='<h3>Histórico local <span>últimas 5 execuções</span></h3>'+
+      (items.length?'<div class="history-list">'+items.map(function(item){
+        return '<div class="history-item"><strong>'+new Date(item.at).toLocaleString("pt-BR")+'</strong><span>'+item.findings+' achado(s)</span></div>';
+      }).join("")+'</div>':'<div class="empty-state">Nenhuma execução registrada.</div>');
+    host.appendChild(card);
+  }
+
+  const runAnalysisWithHistory=runAnalysis;
+  runAnalysis=function(p){
+    runAnalysisWithHistory(p);
+    pushHistory(p,state[p.id].last);
+    renderHistory(p.id);
+  };
+
+  const openProjectWithHistory=openProject;
+  openProject=function(id){
+    openProjectWithHistory(id);
+    renderHistory(id);
+  };
+})();
