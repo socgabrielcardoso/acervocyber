@@ -49,3 +49,21 @@
   .acervo-footer{margin:0 18px 20px;align-items:flex-start;flex-direction:column}
 }
 @media(max-width:520px){.stats-strip{grid-template-columns:1fr}}
+
+
+/* Refinamentos dos recursos operacionais */
+.workspace-actions .secondary-button{white-space:nowrap}
+.result-item[hidden]{display:none!important}
+#analysisHistoryCard .empty-state{padding:16px 10px}
+.ioc-row code{white-space:pre-wrap;line-height:1.55}
+.stat-card{transition:transform .18s ease,border-color .18s ease}
+.stat-card:hover{transform:translateY(-2px);border-color:#2d5d78}
+.project-card,.workspace-card,.hero-copy,.hero-console{transition:border-color .18s ease,transform .18s ease,box-shadow .18s ease}
+button:disabled{opacity:.5;cursor:not-allowed}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+@media(prefers-contrast:more){
+  :root{--line:#42647d;--line-2:#557d99;--muted:#b1c9d9}
+  .project-card,.workspace-card,.hero-copy,.hero-console,.section-block{border-width:2px}
+}
