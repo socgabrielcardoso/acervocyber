@@ -1,16 +1,18 @@
-# Portfolio Evidence
+# Evidência técnica
 
-Um portfólio técnico forte mostra raciocínio, não apenas telas.
+Quando eu registro um exercício, tento guardar o que permite entender e repetir o raciocínio:
 
-## Evidências úteis
-- arquitetura;
-- decisão técnica;
-- hipótese investigada;
-- consulta ou regra;
-- teste reproduzível;
+- contexto;
+- hipótese;
+- consulta ou regra usada;
+- evidência encontrada;
+- decisão;
 - resultado;
 - limitação;
-- melhoria seguinte.
+- correção ou próximo teste.
 
-## Regra de confidencialidade
-Nunca usar dados corporativos reais, nomes de usuários, IPs internos, tickets, credenciais ou screenshots sensíveis para provar experiência.
+Screenshot sozinho não prova muita coisa. Sempre que possível, a evidência deve vir acompanhada do caminho usado para chegar nela.
+
+## Confidencialidade
+
+Exemplos públicos usam dados fictícios. Nomes reais, IPs internos, tickets, tokens, credenciais e informações corporativas ficam fora do repositório.
