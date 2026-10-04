@@ -1,17 +1,23 @@
-# Project Profile
+# AcervoCyber — notas do projeto
 
-**Acervo Cyber** is a browser-based Blue Team laboratory that groups independent security exercises for detection, investigation, log analysis, baselining and rule tuning.
+## Finalidade
 
-## What this project demonstrates
-- Practical SOC and Blue Team reasoning
-- Client-side security tooling and local data processing
-- Detection-oriented workflows and investigation interfaces
-- Modular lab design with no backend dependency
-- Focus on reproducible, safe training scenarios
+Base pessoal de referência para assuntos de Blue Team e SOC.
 
-## Portfolio signal
-This repository is intended to demonstrate hands-on security operations thinking: turning raw technical inputs into structured analysis, evidence and defensive decisions.
+O projeto reúne conteúdo que pode ser consultado durante estudos, laboratórios e exercícios de investigação: logs, identidade, endpoint, rede, detecção, resposta a incidentes e hardening.
 
-**Domain:** Cybersecurity, Blue Team, SOC, Detection Engineering  
-**Execution model:** Local/browser-based laboratory  
-**Status:** Active technical portfolio project
+## Como foi montado
+
+A aplicação funciona no navegador e mantém a documentação junto do código. Isso facilita testar mudanças localmente e publicar como site estático sem depender de backend.
+
+## Pontos principais
+
+- organização de material defensivo por assunto;
+- documentação de processos de investigação;
+- exemplos voltados a detecção e resposta;
+- uso de dados sintéticos;
+- estrutura simples para manutenção rápida.
+
+## Escopo
+
+Cybersecurity, Blue Team, SOC e Detection Engineering.
