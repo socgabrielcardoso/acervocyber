@@ -1,16 +1,14 @@
-# Review Checklist
+# Revisão antes de publicar
 
-Antes de considerar um conteúdo pronto:
+Antes de subir uma alteração:
 
-- o objetivo está claro;
-- termos técnicos estão corretos;
-- exemplos não expõem dados reais;
-- comandos são seguros;
-- hipótese e fato estão separados;
-- remediação está descrita;
-- limitações estão explícitas;
-- links internos funcionam;
-- não há credenciais, tokens ou segredos;
-- a leitura entrega valor operacional.
+- confirmar se o texto está tecnicamente correto;
+- remover qualquer dado real ou sensível;
+- testar comandos e links citados;
+- separar fato de hipótese;
+- evitar afirmar certeza sem evidência;
+- explicar a correção quando houver um problema;
+- conferir se o exemplo ainda faz sentido fora do meu ambiente;
+- procurar tokens, senhas e chaves por engano.
 
-Esse checklist mantém o AcervoCyber consistente como portfólio e base de estudo.
+Se o material não ajuda a entender ou executar algo, ele provavelmente não precisa estar aqui.
